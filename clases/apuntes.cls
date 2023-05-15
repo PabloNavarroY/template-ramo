@@ -28,7 +28,7 @@
 \RequirePackage{tikz}
 
 % Custom packages
-% \RequirePackage{math-macros}
+\RequirePackage{math-macros}
 \RequirePackage{math-environments}
 \RequirePackage{fancy-dates}
 
