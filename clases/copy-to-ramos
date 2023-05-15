@@ -2,6 +2,8 @@
 
 for folder in $(ls -d ../../*/ | sed 's:^../../\(.*\)/$:\1:' | sed '/template/d')
 do
+    cp apuntes.cls "../../$folder/clases/"
     cp math-environments.sty "../../$folder/clases/"
     cp fancy-dates.sty "../../$folder/clases/"
+    # cp math-macros.sty "../../$folder/clases/"
 done
