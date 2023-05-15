@@ -235,6 +235,14 @@
 
 % Sistema de ecuaciones
 \NewDocumentEnvironment{sistema}{b}{}{
+  \begin{empheq}[left=\empheqlbrace]{equation}
+    \begin{aligned}
+      #1
+    \end{aligned}
+  \end{empheq}
+}
+
+\NewDocumentEnvironment{sistema*}{b}{}{
   \begin{empheq}[left=\empheqlbrace]{equation*}
     \begin{aligned}
       #1
