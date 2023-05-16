@@ -98,14 +98,42 @@
   \end{mdframed}
 }
 
+% Black and white frame
+\newenvironment{bwframe}[2][]
+{
+  \mdfsetup{
+    frametitlealignment=\raggedright,
+    frametitleaboveskip=0,
+    frametitle={
+      \hspace{-16pt}
+      \tikz[baseline=(current bounding box.east),outer sep=0pt]
+      \node[rectangle, draw=black, line width=1pt, color=black]
+      {#2\ifstrempty{#1}{}{~(#1)}};
+    },
+    topline=false,bottomline=false,rightline=false,
+    linewidth=1pt,
+  }
+  \begin{mdframed}[]\relax
+  }{
+  \end{mdframed}
+}
+
 % Definición
 \newcounter{DefinitionCounter}[section]
 \newenvironment{definicion}[1][]
 {
   \refstepcounter{DefinitionCounter}
-  \begin{templateFrame}[#1]{Definición}{\theDefinitionCounter}{DefinitionFontColor}{DefinitionFrameColor}{DefinitionBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Definición \theDefinitionCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Definición}{\theDefinitionCounter}{DefinitionFontColor}{DefinitionFrameColor}{DefinitionBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Proposición
@@ -113,9 +141,17 @@
 \newenvironment{prop}[1][]
 {
   \refstepcounter{PropositionCounter}
-  \begin{templateFrame}[#1]{Proposición}{\thePropositionCounter}{PropositionFontColor}{PropositionFrameColor}{PropositionBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Proposición \thePropositionCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Proposición}{\thePropositionCounter}{PropositionFontColor}{PropositionFrameColor}{PropositionBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Teorema
@@ -123,9 +159,17 @@
 \newenvironment{teorema}[1][]
 {
   \refstepcounter{TheoremCounter}
-  \begin{templateFrame}[#1]{Teorema}{\theTheoremCounter}{TheoremFontColor}{TheoremFrameColor}{TheoremBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Teorema \theTheoremCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Teorema}{\theTheoremCounter}{TheoremFontColor}{TheoremFrameColor}{TheoremBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Corolario
@@ -133,9 +177,17 @@
 \newenvironment{corolario}[1][]
 {
   \refstepcounter{CorollaryCounter}
-  \begin{templateFrame}[#1]{Corolario}{\theCorollaryCounter}{CorollaryFontColor}{CorollaryFrameColor}{CorollaryBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Corolario \theCorollaryCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Corolario}{\theCorollaryCounter}{CorollaryFontColor}{CorollaryFrameColor}{CorollaryBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Lema
@@ -143,9 +195,17 @@
 \newenvironment{lema}[1][]
 {
   \refstepcounter{LemaCounter}
-  \begin{templateFrame}[#1]{Lema}{\theLemaCounter}{LemaFontColor}{LemaFrameColor}{LemaBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Lema \theLemaCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Lema}{\theLemaCounter}{LemaFontColor}{LemaFrameColor}{LemaBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Afirmación
@@ -153,33 +213,57 @@
 \newenvironment{aff}[1][]
 {
   \refstepcounter{AffirmationCounter}
-  \begin{templateFrame}[#1]{Afirmación}{\theAffirmationCounter}{AffirmationFontColor}{AffirmationFrameColor}{AffirmationBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Afirmación}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Afirmación}{\theAffirmationCounter}{AffirmationFontColor}{AffirmationFrameColor}{AffirmationBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Demostración
 \newenvironment{dem}[1][]
 {
-  \begin{templateFrame}[#1]{Demostración}{}{DemonstrationFontColor}{DemonstrationFrameColor}{DemonstrationBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Demostración}
   }{
+    \begin{templateFrame}[#1]{Demostración}{}{DemonstrationFontColor}{DemonstrationFrameColor}{DemonstrationBgColor}
+  }
+}{
   \hfill\break
   \vspace{-.3ex}
   \hfill\(\qed\)
 
-  \end{templateFrame}
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Solución
 \newenvironment{sol}[1][]
 {
-  \begin{templateFrame}[#1]{Solución}{}{SolutionFontColor}{SolutionFrameColor}{SolutionBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Solución}
   }{
+    \begin{templateFrame}[#1]{Solución}{}{SolutionFontColor}{SolutionFrameColor}{SolutionBgColor}
+  }
+}{
   \hfill\break
   \vspace{-.3ex}
   \hfill\(\blacksquare\)
 
-  \end{templateFrame}
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Ejemplo
@@ -187,9 +271,17 @@
 \newenvironment{ejemplo}[1][]
 {
   \refstepcounter{ExampleCounter}
-  \begin{templateFrame}[#1]{Ejemplo}{\theExampleCounter}{ExampleFontColor}{ExampleFrameColor}{ExampleBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Ejemplo \theExampleCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Ejemplo}{\theExampleCounter}{ExampleFontColor}{ExampleFrameColor}{ExampleBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Ejercicio
@@ -197,9 +289,17 @@
 \newenvironment{ejercicio}[1][]
 {
   \refstepcounter{ExerciseCounter}
-  \begin{templateFrame}[#1]{Ejercicio}{\theExerciseCounter}{ExerciseFontColor}{ExerciseFrameColor}{ExerciseBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Ejercicio \theExerciseCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Ejercicio}{\theExerciseCounter}{ExerciseFontColor}{ExerciseFrameColor}{ExerciseBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Pregunta
@@ -207,9 +307,17 @@
 \newenvironment{pregunta}[1][]
 {
   \refstepcounter{QuestionCounter}
-  \begin{templateFrame}[#1]{Pregunta}{\theQuestionCounter}{QuestionFontColor}{QuestionFrameColor}{QuestionBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Pregunta \theQuestionCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Pregunta}{\theQuestionCounter}{QuestionFontColor}{QuestionFrameColor}{QuestionBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Observación
@@ -217,9 +325,17 @@
 \newenvironment{obs}[1][]
 {
   \refstepcounter{ObservationCounter}
-  \begin{templateFrame}[#1]{Observación}{\theObservationCounter}{ObservationFontColor}{ObservationFrameColor}{ObservationBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Observación \theObservationCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Observación}{\theObservationCounter}{ObservationFontColor}{ObservationFrameColor}{ObservationBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 % Notación
@@ -227,9 +343,17 @@
 \newenvironment{notacion}[1][]
 {
   \refstepcounter{NotationCounter}
-  \begin{templateFrame}[#1]{Notación}{\theNotationCounter}{NotationFontColor}{NotationFrameColor}{NotationBgColor}
+  \siimprimir{
+    \begin{bwframe}[#1]{Notación \theNotationCounter}
   }{
-  \end{templateFrame}
+    \begin{templateFrame}[#1]{Notación}{\theNotationCounter}{NotationFontColor}{NotationFrameColor}{NotationBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
 }
 
 
