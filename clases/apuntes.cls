@@ -97,10 +97,9 @@
 
   % Tablas de contenidos
   \tableofcontents
-  \thispagestyle{firstpagestyle}
   \siimprimir{}{
     \listofclases
-    \thispagestyle{firstpagestyle}
+    % \thispagestyle{firstpagestyle}
   }
   \siimprimir{}{\newpage}
 }

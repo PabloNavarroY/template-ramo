@@ -30,6 +30,9 @@
   \addcontentsline{cl}{clases}{
     \protect\numberline{\theclases}\DTMDisplaydate{#3}{#2}{#1}{-1}}
   \DTMsetdatestyle{longDateStyle}
-  \begin{flushright}
-    \fbox{\DTMDisplaydate{#3}{#2}{#1}{-1}}
-  \end{flushright}}
+  \siimprimir{}{
+    \begin{flushright}
+      \fbox{\DTMDisplaydate{#3}{#2}{#1}{-1}}
+    \end{flushright}
+  }
+}

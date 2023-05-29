@@ -41,6 +41,7 @@
 \definecolor{QuestionFrameColor}{HTML}{179299}        % Teal
 \definecolor{ObservationFrameColor}{HTML}{d20f39}     % Red
 \definecolor{NotationFrameColor}{HTML}{e64553}        % Maroon
+\definecolor{ReminderFrameColor}{HTML}{e64553}        % Maroon
 
 % \colorlet{ProofFrameColor}{black}
 
@@ -62,6 +63,7 @@
 \definecolor{QuestionFontColor}{HTML}{000000}
 \definecolor{ObservationFontColor}{HTML}{000000}
 \definecolor{NotationFontColor}{HTML}{000000}
+\definecolor{ReminderFontColor}{HTML}{000000}
 
 % -- Background
 \definecolor{DefinitionBgColor}{HTML}{FFFFFF}
@@ -77,6 +79,7 @@
 \definecolor{QuestionBgColor}{HTML}{FFFFFF}
 \definecolor{ObservationBgColor}{HTML}{FFFFFF}
 \definecolor{NotationBgColor}{HTML}{FFFFFF}
+\definecolor{ReminderBgColor}{HTML}{FFFFFF}
 
 
 % --------- Environment definitions ---------
@@ -339,14 +342,12 @@
 }
 
 % Notación
-\newcounter{NotationCounter}[section]
 \newenvironment{notacion}[1][]
 {
-  \refstepcounter{NotationCounter}
   \siimprimir{
-    \begin{bwframe}[#1]{Notación \theNotationCounter}
+    \begin{bwframe}[#1]{Notación}
   }{
-    \begin{templateFrame}[#1]{Notación}{\theNotationCounter}{NotationFontColor}{NotationFrameColor}{NotationBgColor}
+    \begin{templateFrame}[#1]{Notación}{}{NotationFontColor}{NotationFrameColor}{NotationBgColor}
   }
 }{
   \siimprimir{
@@ -356,6 +357,21 @@
   }
 }
 
+% Recuerdo
+\newenvironment{recuerdo}[1][]
+{
+  \siimprimir{
+    \begin{bwframe}[#1]{Recuerdo:}
+  }{
+    \begin{templateFrame}[#1]{Recuerdo}{}{ReminderFontColor}{ReminderFrameColor}{ReminderBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
+}
 
 % Sistema de ecuaciones
 \NewDocumentEnvironment{sistema}{b}{}{
