@@ -26,6 +26,7 @@
 \RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
 \RequirePackage{tikz}
+\usetikzlibrary{calc}
 
 % Custom packages
 \RequirePackage{math-macros}
@@ -76,32 +77,66 @@
 }
 \pagestyle{generalpagestyle}
 
+\newcommand{\titleformat}[1]{\textbf{\Large{#1}}}
+\newcommand{\siglaformat}[1]{\textbf{\scriptsize{#1}}}
+\newcommand{\authorformat}[1]{\textsc{\normalsize{#1}}}
+\newcommand{\dateformat}[1]{\small{#1}}
 \renewcommand{\maketitle} {
   \thispagestyle{firstpagestyle}
   \begin{center}
-    \textbf{\scriptsize\@class}\par
-    \textbf{\Large\@title}\par
     \begin{tikzpicture}
-      \draw[thick] (-1.5,0) -- (-.4,0);
-      \filldraw (.1,0) -- (0,.1) -- (-.1,0) -- (0,-.1) -- cycle;
-      \draw[thick] (.4,0) -- (1.5,0);
+      % Título y sigla
+      \node at (0,0) (T) {\titleformat{\@title}};
+      \draw let
+        \p1 = ($(T.south) - (0,.2)$),
+        \n1 = {-veclen(\p1)},
+        \p2 = ($0.6*(T.east)$),
+        \n2 = {veclen(\p2)}
+      in
+        [thick] (-\n2,\n1) -- (\n2,\n1) node (S) [midway, fill=white]{\siglaformat{\@class}};
+      % Autor
+      \node at ($(S.south) - (0,.2)$) (A) {\authorformat{\@author}};
+      % Profesor y ayudante
+      \node (Q1) {\phantom{\textbf{Profesor:}}};
+      \node (Q2) {\phantom{\textbf{Ayudante:}}};
+      \node (Q3) {\phantom{\@profesor}};
+      \node (Q4) {\phantom{\@ayudante}};
+      \draw let
+        \p1 = ($(Q1.east) - (Q1.west)$),
+        \n1 = {veclen(\p1)},
+        \p2 = ($(Q2.east) - (Q2.west)$),
+        \n2 = {veclen(\p2)},
+        \p3 = ($(Q3.east) - (Q3.west)$),
+        \n3 = {veclen(\p3)},
+        \p4 = ($(Q4.east) - (Q4.west)$),
+        \n4 = {veclen(\p4)},
+        \n5 = {max(\n1,\n2)}, % largo parte izquierda
+        \n6 = {max(\n3,\n4)}, % largo parte derecha
+        \n7 = {(\n5 - \n6) / 2},
+        \p5 = ($(A.south) + (\n7,-1)$),
+        \p6 = ($(\p5) - (0,.55)$),
+        \n8 = {(\n3 - \n1) / 2},
+        \n9 = {(\n4 - \n2) / 2},
+        \p7 = ($(\p5) + (\n8,0)$),
+        \p8 = ($(\p6) + (\n9,0)$),
+      in
+        node at (\p7) {\textbf{Profesor:} \@profesor}
+        node at (\p8) {\textbf{Ayudante:} \@ayudante};
+      % Fecha
+      \node at ($(A.south) - (0,2.8)$) {\dateformat{\@date}};
     \end{tikzpicture}
-    \par
-    \textsc{\@author}\par
-    \vspace*{4ex}
-    {\textbf{Profesor:} \@profesor}\par
-    {\textbf{Ayudante:} \@ayudante}\par
-    \vspace*{4ex}
-    {\small\@date}
   \end{center}
 
   % Tablas de contenidos
+  \vspace*{-4ex}
   \tableofcontents
+  \thispagestyle{plain}
+  \newpage
   \siimprimir{}{
     \listofclases
-    % \thispagestyle{firstpagestyle}
+    \thispagestyle{plain}
+    \newpage
   }
-  \siimprimir{}{\newpage}
 }
 
 
