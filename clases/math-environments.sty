@@ -373,6 +373,22 @@
   }
 }
 
+% Recuerdo
+\newenvironment{nota}[1][]
+{
+  \siimprimir{
+    \begin{bwframe}[#1]{Nota:}
+  }{
+    \begin{templateFrame}[#1]{Nota}{}{ReminderFontColor}{ReminderFrameColor}{ReminderBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
+}
+
 % Sistema de ecuaciones
 \NewDocumentEnvironment{sistema}{b}{}{
   \begin{empheq}[left=\empheqlbrace]{equation}
