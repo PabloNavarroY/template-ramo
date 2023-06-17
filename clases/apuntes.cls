@@ -25,7 +25,6 @@
 \RequirePackage{ifthen}
 \RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
-\RequirePackage{todonotes}
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
 
@@ -33,6 +32,7 @@
 \RequirePackage{math-macros}
 \RequirePackage{math-environments}
 \RequirePackage{fancy-dates}
+\RequirePackage{todolist}
 
 \RequirePackage{subfiles}
 

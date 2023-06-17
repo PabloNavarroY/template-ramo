@@ -5,5 +5,6 @@ do
     cp "$HOME/ramos/template/clases/apuntes.cls"           "$HOME/ramos/$folder/clases/"
     cp "$HOME/ramos/template/clases/math-environments.sty" "$HOME/ramos/$folder/clases/"
     cp "$HOME/ramos/template/clases/fancy-dates.sty"       "$HOME/ramos/$folder/clases/"
+    cp "$HOME/ramos/template/clases/todolist.sty"          "$HOME/ramos/$folder/clases/"
     # cp "$HOME/ramos/template/clases/math-macros.sty"       "$HOME/ramos/$folder/clases/"
 done
