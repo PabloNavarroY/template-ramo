@@ -25,6 +25,7 @@
 \RequirePackage{ifthen}
 \RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
+\RequirePackage{todonotes}
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
 
@@ -134,6 +135,9 @@
   \newpage
   \siimprimir{}{
     \listofclases
+    \thispagestyle{plain}
+    \newpage
+    \listoftodos
     \thispagestyle{plain}
     \newpage
   }
