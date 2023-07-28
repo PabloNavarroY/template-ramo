@@ -27,6 +27,7 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
+\RequirePackage{tikz-cd}
 
 % Custom packages
 \RequirePackage{math-macros}
