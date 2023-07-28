@@ -26,6 +26,7 @@
 \RequirePackage{ifthen}
 \RequirePackage{fancyhdr}
 \RequirePackage{math-environments}
+\RequirePackage{math-macros}
 \RequirePackage{subfiles}
 
 \hypersetup {
@@ -105,23 +106,3 @@
 % --------- Commands ---------
 \newcommand{\onlyinsubfile}[1]{#1}
 \newcommand{\notinsubfile}[1]{}
-
-% --------- Math Macros ---------
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\FF}{\mathcal{F}}
-\newcommand{\LL}{\mathcal{L}}
-\newcommand{\then}{\Rightarrow}
-\newcommand{\ssi}{\Leftrightarrow}
-\newcommand{\prent}[1]{\left({#1}\right)}
-\newcommand{\abs}[1]{\left\lvert{#1}\right\rvert}
-\newcommand{\norm}[1]{\left\|{#1}\right\|}
-\newcommand{\set}[1]{\left\lbrace{#1}\right\rbrace}
-\renewcommand{\div}{\text{div}}
-\newcommand{\DD}{\mathcal{D}}
-\newcommand{\prodp}[1]{\left\langle{#1}\right\rangle}
-\newcommand{\Id}{\text{Id}}
-\renewcommand{\epsilon}{\varepsilon}
-\newcommand{\srel}[2]{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily #1}}}{#2}}}
