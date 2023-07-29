@@ -6,7 +6,6 @@
 *.fls
 *.out
 *.toc
-*.cl
 *.fmt
 *.fot
 *.cb
@@ -302,5 +301,6 @@ TSWLatexianTemp*
 #*Notes.bib
 
 *.pdf
+*.cl
 *.td
 *.pr

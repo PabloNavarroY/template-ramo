@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+for folder in "$@"
+do
+    mkdir -p "$HOME/ramos/$folder/clases/files"
+
+    cp "$HOME/ramos/template/.gitignore"                   "$HOME/ramos/$folder/"
+
+    cp "$HOME/ramos/template/clases/apuntes.cls"           "$HOME/ramos/$folder/clases/"
+    cp "$HOME/ramos/template/clases/create-subfile.sh"     "$HOME/ramos/$folder/clases/"
+    cp "$HOME/ramos/template/clases/fancy-dates.sty"       "$HOME/ramos/$folder/clases/"
+    cp "$HOME/ramos/template/clases/math-environments.sty" "$HOME/ramos/$folder/clases/"
+    cp "$HOME/ramos/template/clases/math-macros.sty"       "$HOME/ramos/$folder/clases/"
+    cp "$HOME/ramos/template/clases/todolist.sty"          "$HOME/ramos/$folder/clases/"
+    cp "$HOME/ramos/template/clases/files/template.tex"    "$HOME/ramos/$folder/clases/files/"
+
+    cp -T "$HOME/ramos/template/clases/template-main.tex"  "$HOME/ramos/$folder/clases/main.tex"
+done
