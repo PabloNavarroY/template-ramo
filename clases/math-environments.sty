@@ -341,6 +341,22 @@
   }
 }
 
+% Comentario
+\newenvironment{comentario}[1][]
+{
+  \siimprimir{
+    \begin{bwframe}[#1]{Comentario}
+  }{
+    \begin{templateFrame}[#1]{Comentario}{}{ObservationFontColor}{ObservationFrameColor}{ObservationBgColor}
+  }
+}{
+  \siimprimir{
+    \end{bwframe}
+  }{
+    \end{templateFrame}
+  }
+}
+
 % Notación
 \newenvironment{notacion}[1][]
 {
