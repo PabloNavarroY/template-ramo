@@ -54,12 +54,16 @@
 \gdef\@author{\empty}
 \gdef\@class{\empty}
 \gdef\@profesor{\empty}
+\gdef\@emailprofesor{\empty}
 \gdef\@ayudante{\empty}
+\gdef\@emailayudante{\empty}
 \gdef\@imprimir{\empty}
 \renewcommand{\author}[1]{\gdef\@author{#1}}
 \newcommand{\class}[1]{\gdef\@class{#1}}
 \newcommand{\profesor}[1]{\gdef\@profesor{#1}}
+\newcommand{\emailprofesor}[1]{\gdef\@emailprofesor{#1}}
 \newcommand{\ayudante}[1]{\gdef\@ayudante{#1}}
+\newcommand{\emailayudante}[1]{\gdef\@emailayudante{#1}}
 \newcommand{\imprimir}[1]{\gdef\@imprimir{#1}}
 
 \newcommand{\siimprimir}[2]{\ifthenelse{\equal{\@imprimir}{\empty}}{#2}{#1}}
@@ -122,8 +126,8 @@
         \p7 = ($(\p5) + (\n8,0)$),
         \p8 = ($(\p6) + (\n9,0)$),
       in
-        node at (\p7) {\textbf{Profesor:} \@profesor}
-        node at (\p8) {\textbf{Ayudante:} \@ayudante};
+        node at (\p7) {\textbf{Profesor:} \@profesor\ifstrempty{\@emailprofesor}{}{~(\emph{\@emailprofesor})}}
+        node at (\p8) {\textbf{Ayudante:} \@ayudante\ifstrempty{\@emailayudante}{}{~(\emph{\@emailayudante})}};
       % Fecha
       \node at ($(A.south) - (0,2.8)$) {\dateformat{\@date}};
     \end{tikzpicture}
