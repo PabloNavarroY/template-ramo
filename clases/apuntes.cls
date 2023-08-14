@@ -105,8 +105,8 @@
       % Profesor y ayudante
       \node (Q1) {\phantom{\textbf{Profesor:}}};
       \node (Q2) {\phantom{\textbf{Ayudante:}}};
-      \node (Q3) {\phantom{\@profesor}};
-      \node (Q4) {\phantom{\@ayudante}};
+      \node (Q3) {\phantom{\@profesor\ifthenelse{\equal{\@emailprofesor}{\empty}}{}{~(\emph{\@emailprofesor})}}};
+      \node (Q4) {\phantom{\@ayudante\ifthenelse{\equal{\@emailayudante}{\empty}}{}{~(\emph{\@emailayudante})}}};
       \draw let
         \p1 = ($(Q1.east) - (Q1.west)$),
         \n1 = {veclen(\p1)},
@@ -126,8 +126,8 @@
         \p7 = ($(\p5) + (\n8,0)$),
         \p8 = ($(\p6) + (\n9,0)$),
       in
-        node at (\p7) {\textbf{Profesor:} \@profesor\ifstrempty{\@emailprofesor}{}{~(\emph{\@emailprofesor})}}
-        node at (\p8) {\textbf{Ayudante:} \@ayudante\ifstrempty{\@emailayudante}{}{~(\emph{\@emailayudante})}};
+        node at (\p7) {\textbf{Profesor:} \@profesor\ifthenelse{\equal{\@emailprofesor}{\empty}}{}{~(\emph{\@emailprofesor})}}
+        node at (\p8) {\textbf{Ayudante:} \@ayudante\ifthenelse{\equal{\@emailayudante}{\empty}}{}{~(\emph{\@emailayudante})}};
       % Fecha
       \node at ($(A.south) - (0,2.8)$) {\dateformat{\@date}};
     \end{tikzpicture}
