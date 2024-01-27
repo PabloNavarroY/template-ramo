@@ -3,7 +3,6 @@
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{mathtools}
 
-
 % --------- Math Macros ---------
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Q}{\mathbb{Q}}
@@ -28,3 +27,24 @@
 \newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
 
 \renewcommand{\epsilon}{\varepsilon}
+
+% Sistema de ecuaciones
+\NewDocumentEnvironment{sistema}{b}{}{
+  \begin{equation}
+    \left\lbrace
+    \begin{aligned}
+      #1
+    \end{aligned}
+    \right.
+  \end{equation}
+}
+
+\NewDocumentEnvironment{sistema*}{b}{}{
+  \[
+    \left\lbrace
+    \begin{aligned}
+      #1
+    \end{aligned}
+    \right.
+  \]
+}

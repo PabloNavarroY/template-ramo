@@ -1,423 +1,155 @@
 \ProvidesPackage{math-environments}
 
 % --------- Package dependencies ---------
-
-\usepackage{empheq}
-
-\usepackage{mdframed}
-\usepackage{xcolor}
-\usepackage{etoolbox}
-\usepackage{tikz,float}
-\usetikzlibrary{babel}
-
-
-% --------- Mdframed template ---------
-
-\mdfsetup{
-  frametitlealignment=\raggedright,
-  linewidth=2pt,
-  topline=false,rightline=false,bottomline=false,
-  frametitleaboveskip=0,
-  innertopmargin=2pt,
-  innerbottommargin=2pt,
-  innerleftmargin=6pt,
-  innerrightmargin=0pt,
+\RequirePackage{hyperref}
+\RequirePackage[x11names]{xcolor}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{
+  skins,
+  theorems,
+  breakable
 }
-
-
-% --------- Colors ---------
-
-% -- Frame
-\definecolor{DefinitionFrameColor}{HTML}{40a02b}      % Green
-\definecolor{PropositionFrameColor}{HTML}{209fb5}     % Sapphire
-\definecolor{TheoremFrameColor}{HTML}{04a5e5}         % Sky
-\definecolor{CorollaryFrameColor}{HTML}{179299}       % Teal
-\definecolor{LemaFrameColor}{HTML}{7287fd}            % Lavender
-\definecolor{AffirmationFrameColor}{HTML}{dc8a78}     % Rosewater
-\definecolor{DemonstrationFrameColor}{HTML}{4c4f69}   % Text
-\definecolor{SolutionFrameColor}{HTML}{4c4f69}        % Text
-\definecolor{ExampleFrameColor}{HTML}{df8e1d}         % Yellow
-\definecolor{ExerciseFrameColor}{HTML}{fe640b}        % Peach
-\definecolor{QuestionFrameColor}{HTML}{179299}        % Teal
-\definecolor{ObservationFrameColor}{HTML}{d20f39}     % Red
-\definecolor{NotationFrameColor}{HTML}{e64553}        % Maroon
-\definecolor{ReminderFrameColor}{HTML}{e64553}        % Maroon
-
-% \colorlet{ProofFrameColor}{black}
-
-% \definecolor{ExampleColor}{HTML}{FFE3A9}
-% \colorlet{ExerciseColor}{black}
-% \colorlet{SolutionColor}{black!60}
-
-% -- Text
-\definecolor{DefinitionFontColor}{HTML}{000000}
-\definecolor{PropositionFontColor}{HTML}{000000}
-\definecolor{TheoremFontColor}{HTML}{000000}
-\definecolor{CorollaryFontColor}{HTML}{000000}
-\definecolor{LemaFontColor}{HTML}{000000}
-\definecolor{AffirmationFontColor}{HTML}{000000}
-\definecolor{DemonstrationFontColor}{HTML}{dce0e8}    % Crust
-\definecolor{SolutionFontColor}{HTML}{dce0e8}         % Crust
-\definecolor{ExampleFontColor}{HTML}{000000}
-\definecolor{ExerciseFontColor}{HTML}{000000}
-\definecolor{QuestionFontColor}{HTML}{000000}
-\definecolor{ObservationFontColor}{HTML}{000000}
-\definecolor{NotationFontColor}{HTML}{000000}
-\definecolor{ReminderFontColor}{HTML}{000000}
-
-% -- Background
-\definecolor{DefinitionBgColor}{HTML}{FFFFFF}
-\definecolor{PropositionBgColor}{HTML}{FFFFFF}
-\definecolor{TheoremBgColor}{HTML}{FFFFFF}
-\definecolor{CorollaryBgColor}{HTML}{FFFFFF}
-\definecolor{LemaBgColor}{HTML}{FFFFFF}
-\definecolor{AffirmationBgColor}{HTML}{FFFFFF}
-\definecolor{DemonstrationBgColor}{HTML}{FFFFFF}
-\definecolor{SolutionBgColor}{HTML}{FFFFFF}
-\definecolor{ExampleBgColor}{HTML}{FFFFFF}
-\definecolor{ExerciseBgColor}{HTML}{FFFFFF}
-\definecolor{QuestionBgColor}{HTML}{FFFFFF}
-\definecolor{ObservationBgColor}{HTML}{FFFFFF}
-\definecolor{NotationBgColor}{HTML}{FFFFFF}
-\definecolor{ReminderBgColor}{HTML}{FFFFFF}
-
+\RequirePackage{xargs}
+\RequirePackage{etoolbox}
+\RequirePackage{varwidth}
+\RequirePackage{cleveref}
 
 % --------- Environment definitions ---------
-
-\newenvironment{templateFrame}[6][]
-{
-  \mdfsetup{
-    frametitle={
-      \hspace{-16pt}
-      \tikz[baseline=(current bounding box.east),outer sep=0pt]
-      \node[rectangle,color=#4,fill=#5]
-      {#2\ifstrempty{#3}{}{~#3}:\ifstrempty{#1}{}{~(#1)}};
+% Caja en forma de bandera
+% #4 -> frame color
+\newcommandx{\newflagtheorem}[5][1]{
+  \newtcbtheorem[#1]{#2}{#3}{
+    fonttitle=\bfseries,
+    coltitle=black,
+    colback=white,
+    frame hidden,
+    enhanced,
+    borderline west={.8mm}{0pt}{#4},
+    attach boxed title to top left,
+    varwidth boxed title=0.75\linewidth,
+    boxed title style={empty},
+    underlay boxed title={
+      \fill[#4] (title.north west) -- (title.north east)
+      -- +(0.5*\tcboxedtitleheight,-\tcboxedtitleheight)
+      -- (title.south west) -- cycle;
     },
-    linecolor=#5,
-    backgroundcolor=#6,
-  }
-  \begin{mdframed}[]\relax
-}{
-  \end{mdframed}
+    breakable,
+    pad at break=0mm,
+    separator sign={\ $\blacktriangleright$}
+  }{#5}
 }
 
-% Black and white frame
-\newenvironment{bwframe}[2][]
-{
-  \mdfsetup{
-    frametitlealignment=\raggedright,
-    frametitleaboveskip=0,
-    frametitle={
-      \hspace{-16pt}
-      \tikz[baseline=(current bounding box.east),outer sep=0pt]
-      \node[rectangle, draw=black, line width=1pt, color=black]
-      {#2\ifstrempty{#1}{}{~(#1)}};
+% Caja para las demostraciones y soluciones
+% #4 -> frame color
+\newcommandx{\newdemtheorem}[5][1,4=DodgerBlue3]{
+  \newtcbtheorem[#1]{#2}{#3}{
+    enhanced,
+    fonttitle=\bfseries,
+    coltitle={#4},
+    empty,
+    % boxsep={0mm},
+    left={1mm},
+    right={1mm},
+    top={0mm},
+    bottom={1mm},
+    frame hidden,
+    attach boxed title to top left={xshift=-1mm},
+    varwidth boxed title=0.75\linewidth,
+    boxed title style={empty},
+    underlay boxed title={
+      \draw[#4,thick] ([yshift=\tcboxedtitleheight]frame.north east) -- ([yshift=\tcboxedtitleheight]frame.north west) -- (frame.north west);
     },
-    topline=false,bottomline=false,rightline=false,
-    linewidth=1pt,
-  }
-  \begin{mdframed}[]\relax
-  }{
-  \end{mdframed}
+    overlay unbroken={
+      \draw[#4,thick] (frame.south west) -- (frame.south east) -- +(0,\tcboxedtitleheight);
+    },
+    overlay last={
+      \draw[#4,thick] (frame.south west) -- (frame.south east) -- +(0,\tcboxedtitleheight);
+    },
+    breakable,
+    pad at break=0mm,
+    separator sign={\ $\blacktriangleright$}
+  }{#5}
+}
+
+% Caja que no es caja
+% #4 -> color del titulo
+\newcommandx{\newtexttheorem}[5][1]{
+  \newtcbtheorem[#1]{#2}{#3}{
+    enhanced,
+    theorem style=plain,
+    fonttitle=\bfseries,
+    coltitle={#4},
+    empty,
+    boxsep={0mm}, left={0mm}, right={0mm},% top={0mm}, bottom={0mm},
+    before skip={0mm},
+    after skip={0mm},
+    breakable,
+    pad at break=0mm,
+    overlay unbroken={
+      \fill[tcbcoltitle] (interior.south east) -- +(-.3,0) -- +(0,.3) -- cycle;
+    },
+    overlay last={
+      \fill[tcbcoltitle] (interior.south east) -- +(-.3,0) -- +(0,.3) -- cycle;
+    },
+  }{#5}
 }
 
 % Definición
-\newcounter{DefinitionCounter}[section]
-\newenvironment{definicion}[1][]
-{
-  \refstepcounter{DefinitionCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Definición \theDefinitionCounter}
-  }{
-    \begin{templateFrame}[#1]{Definición}{\theDefinitionCounter}{DefinitionFontColor}{DefinitionFrameColor}{DefinitionBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
-
-% Proposición
-\newcounter{PropositionCounter}[section]
-\newenvironment{prop}[1][]
-{
-  \refstepcounter{PropositionCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Proposición \thePropositionCounter}
-  }{
-    \begin{templateFrame}[#1]{Proposición}{\thePropositionCounter}{PropositionFontColor}{PropositionFrameColor}{PropositionBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newflagtheorem[number within=section, Crefname={Definición}{Definiciones}, crefname={definición}{definiciones}]{Definicion}{Definición}{SpringGreen2}{def}
+\newenvironmentx{definicion}[2][1,2]{\begin{Definicion}{#1}{#2}}{\end{Definicion}}
 
 % Teorema
-\newcounter{TheoremCounter}[section]
-\newenvironment{teorema}[1][]
-{
-  \refstepcounter{TheoremCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Teorema \theTheoremCounter}
-  }{
-    \begin{templateFrame}[#1]{Teorema}{\theTheoremCounter}{TheoremFontColor}{TheoremFrameColor}{TheoremBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newflagtheorem[number within=section, Crefname={Teorema}{Teoremas}, crefname={teorema}{teoremas}]{Teorema}{Teorema}{SlateBlue1}{teo}
+\newenvironmentx{teorema}[2][1,2]{\begin{Teorema}{#1}{#2}}{\end{Teorema}}
 
-% Corolario
-\newcounter{CorollaryCounter}[section]
-\newenvironment{corolario}[1][]
-{
-  \refstepcounter{CorollaryCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Corolario \theCorollaryCounter}
-  }{
-    \begin{templateFrame}[#1]{Corolario}{\theCorollaryCounter}{CorollaryFontColor}{CorollaryFrameColor}{CorollaryBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+% Proposición
+\newflagtheorem[use counter from=Teorema, Crefname={Proposición}{Proposiciones}, crefname={proposición}{proposiciones}]{Prop}{Proposición}{DodgerBlue1}{prop}
+\newenvironmentx{prop}[2][1,2]{\begin{Prop}{#1}{#2}}{\end{Prop}}
 
 % Lema
-\newcounter{LemaCounter}[section]
-\newenvironment{lema}[1][]
-{
-  \refstepcounter{LemaCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Lema \theLemaCounter}
-  }{
-    \begin{templateFrame}[#1]{Lema}{\theLemaCounter}{LemaFontColor}{LemaFrameColor}{LemaBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newflagtheorem[use counter from=Teorema, Crefname={Lema}{Lemas}, crefname={lema}{lemas}]{Lema}{Lema}{SteelBlue2}{lema}
+\newenvironmentx{lema}[2][1,2]{\begin{Lema}{#1}{#2}}{\end{Lema}}
+
+% Corolario
+\newflagtheorem[number within=tcb@cnt@Teorema, Crefname={Corolario}{Corolarios}, crefname={corolario}{corolarios}]{Corolario}{Corolario}{RoyalBlue1}{coro}
+\newenvironmentx{corolario}[2][1,2]{\begin{Corolario}{#1}{#2}}{\end{Corolario}}
 
 % Afirmación
-\newcounter{AffirmationCounter}[section]
-\newenvironment{aff}[1][]
-{
-  \refstepcounter{AffirmationCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Afirmación}
-  }{
-    \begin{templateFrame}[#1]{Afirmación}{\theAffirmationCounter}{AffirmationFontColor}{AffirmationFrameColor}{AffirmationBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newtexttheorem{Aff}{Afirmación}{Firebrick1}{aff}
+\newenvironmentx{aff}[1][1]{\begin{Aff*}{#1}}{\end{Aff*}}
 
 % Demostración
-\newenvironment{dem}[1][]
-{
-  \siimprimir{
-    \begin{bwframe}[#1]{Demostración}
-  }{
-    \begin{templateFrame}[#1]{Demostración}{}{DemonstrationFontColor}{DemonstrationFrameColor}{DemonstrationBgColor}
-  }
-}{
-  \hfill\break
-  \vspace{-.3ex}
-  \hfill\(\qed\)
-
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newdemtheorem{Dem}{Demostración}{dem}
+\newenvironmentx{dem}[1][1]{\begin{Dem*}{#1}}{\end{Dem*}}
 
 % Solución
-\newenvironment{sol}[1][]
-{
-  \siimprimir{
-    \begin{bwframe}[#1]{Solución}
-  }{
-    \begin{templateFrame}[#1]{Solución}{}{SolutionFontColor}{SolutionFrameColor}{SolutionBgColor}
-  }
-}{
-  \hfill\break
-  \vspace{-.3ex}
-  \hfill\(\blacksquare\)
-
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newdemtheorem{Sol}{Solución}{sol}
+\newenvironmentx{sol}[1][1]{\begin{Sol*}{#1}}{\end{Sol*}}
 
 % Ejemplo
-\newcounter{ExampleCounter}[section]
-\newenvironment{ejemplo}[1][]
-{
-  \refstepcounter{ExampleCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Ejemplo \theExampleCounter}
-  }{
-    \begin{templateFrame}[#1]{Ejemplo}{\theExampleCounter}{ExampleFontColor}{ExampleFrameColor}{ExampleBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newtexttheorem[number within=section, Crefname={Ejemplo}{Ejemplos}, crefname={ejemplo}{ejemplos}]{Ejemplo}{Ejemplo}{DodgerBlue3}{ej}
+\newenvironmentx{ejemplo}[2][1,2]{\begin{Ejemplo}{#1}{#2}}{\end{Ejemplo}}
 
 % Ejercicio
-\newcounter{ExerciseCounter}[section]
-\newenvironment{ejercicio}[1][]
-{
-  \refstepcounter{ExerciseCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Ejercicio \theExerciseCounter}
-  }{
-    \begin{templateFrame}[#1]{Ejercicio}{\theExerciseCounter}{ExerciseFontColor}{ExerciseFrameColor}{ExerciseBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newtexttheorem[number within=section, Crefname={Ejercicio}{Ejercicios}, crefname={ejercicio}{ejercicios}]{Ejercicio}{Ejercicio}{Firebrick2}{ejer}
+\newenvironmentx{ejercicio}[2][1,2]{\begin{Ejercicio}{#1}{#2}}{\end{Ejercicio}}
 
 % Pregunta
-\newcounter{QuestionCounter}[section]
-\newenvironment{pregunta}[1][]
-{
-  \refstepcounter{QuestionCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Pregunta \theQuestionCounter}
-  }{
-    \begin{templateFrame}[#1]{Pregunta}{\theQuestionCounter}{QuestionFontColor}{QuestionFrameColor}{QuestionBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newtexttheorem[number within=section, Crefname={Pregunta}{Preguntas}, crefname={pregunta}{preguntas}]{Pregunta}{Pregunta}{MediumPurple3}{preg}
+\newenvironmentx{pregunta}[2][1,2]{\begin{Pregunta}{#1}{#2}}{\end{Pregunta}}
 
 % Observación
-\newcounter{ObservationCounter}[section]
-\newenvironment{obs}[1][]
-{
-  \refstepcounter{ObservationCounter}
-  \siimprimir{
-    \begin{bwframe}[#1]{Observación \theObservationCounter}
-  }{
-    \begin{templateFrame}[#1]{Observación}{\theObservationCounter}{ObservationFontColor}{ObservationFrameColor}{ObservationBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
-
-% Comentario
-\newenvironment{comentario}[1][]
-{
-  \siimprimir{
-    \begin{bwframe}[#1]{Comentario}
-  }{
-    \begin{templateFrame}[#1]{Comentario}{}{ObservationFontColor}{ObservationFrameColor}{ObservationBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newtexttheorem[number within=section, Crefname={Observación}{Observaciones}, crefname={observación}{observaciones}]{Obs}{Observación}{Brown2}{obs}
+\newenvironmentx{obs}[2][1,2]{\begin{Obs}{#1}{#2}}{\end{Obs}}
 
 % Notación
-\newenvironment{notacion}[1][]
-{
-  \siimprimir{
-    \begin{bwframe}[#1]{Notación}
-  }{
-    \begin{templateFrame}[#1]{Notación}{}{NotationFontColor}{NotationFrameColor}{NotationBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newtexttheorem[number within=section, Crefname={Notación}{Notaciones}, crefname={notación}{notaciones}]{Notacion}{Notación}{Brown2}{notacion}
+\newenvironmentx{notacion}[1][1]{\begin{Notacion*}{#1}}{\end{Notacion*}}
 
 % Recuerdo
-\newenvironment{recuerdo}[1][]
-{
-  \siimprimir{
-    \begin{bwframe}[#1]{Recuerdo:}
-  }{
-    \begin{templateFrame}[#1]{Recuerdo}{}{ReminderFontColor}{ReminderFrameColor}{ReminderBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
+\newtexttheorem[number within=section, Crefname={Recuerdo}{Recuerdos}, crefname={recuerdo}{recuerdos}]{Recuerdo}{Recuerdo}{Brown2}{recuerdo}
+\newenvironmentx{recuerdo}[1][1]{\begin{Recuerdo*}{#1}}{\end{Recuerdo*}}
 
-% Recuerdo
-\newenvironment{nota}[1][]
-{
-  \siimprimir{
-    \begin{bwframe}[#1]{Nota:}
-  }{
-    \begin{templateFrame}[#1]{Nota}{}{ReminderFontColor}{ReminderFrameColor}{ReminderBgColor}
-  }
-}{
-  \siimprimir{
-    \end{bwframe}
-  }{
-    \end{templateFrame}
-  }
-}
-
-% Sistema de ecuaciones
-\NewDocumentEnvironment{sistema}{b}{}{
-  \begin{empheq}[left=\empheqlbrace]{equation}
-    \begin{aligned}
-      #1
-    \end{aligned}
-  \end{empheq}
-}
-
-\NewDocumentEnvironment{sistema*}{b}{}{
-  \begin{empheq}[left=\empheqlbrace]{equation*}
-    \begin{aligned}
-      #1
-    \end{aligned}
-  \end{empheq}
-}
+% Nota
+\newtexttheorem{Nota}{Nota}{Brown2}{nota}
+\newenvironmentx{nota}[1][1]{\begin{Nota*}{#1}}{\end{Nota*}}
