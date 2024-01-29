@@ -7,7 +7,7 @@
 % variables
 \def\apuntes@ptsize{12pt}
 \def\apuntes@pagesize{letterpaper}
-\def\apuntes@font{lmodern}
+\def\apuntes@font{LatinModern}
 \newtoggle{apuntes@print}
 \newtoggle{apuntes@toc}
 \newtoggle{apuntes@clases}
@@ -26,9 +26,10 @@
 \DeclareOption{12pt}{\def\apuntes@ptsize{12pt}}
 
 % font (default: lmodern)
-\DeclareOption{lmodern}{\def\apuntes@font{lmodern}}
-\DeclareOption{libertinus}{\def\apuntes@font{libertinus}}
-\DeclareOption{concrete}{\def\apuntes@font{concrete}}
+\DeclareOption{lmodern}{\def\apuntes@font{LatinModern}}
+\DeclareOption{charter}{\def\apuntes@font{CharterBT}}
+\DeclareOption{libertine}{\def\apuntes@font{Libertine}}
+\DeclareOption{cmbright}{\def\apuntes@font{ComputerModernBright}}
 
 % page size (default: letterpaper)
 \DeclareOption{letterpaper}{\def\apuntes@pagesize{letterpaper}}
@@ -49,29 +50,35 @@
 
 \RequirePackage{xstring}
 
-% Font
-\RequirePackage[T1]{fontenc}
-\IfStrEqCase{\apuntes@font}{
-  {lmodern}{
-    \RequirePackage{lmodern}
-  }
-  {libertinus}{
-    \RequirePackage{libertinus}
-    \RequirePackage{libertinust1math}
-  }
-  {concrete}{
-    \RequirePackage{concrete}
-    \RequirePackage{beton}
-    \RequirePackage{euler}
-    \renewcommand{\bfdefault}{sbc}
-  }
-}
-
 % Custom packages
 \RequirePackage{math-macros}
 \RequirePackage[\iftoggle{apuntes@print}{bw}{}]{math-environments}
 \RequirePackage{fancy-dates}
 % \RequirePackage{todolist}
+
+% Font
+\IfStrEqCase{\apuntes@font}{
+  {LatinModern}{
+    \RequirePackage{lmodern}
+    \RequirePackage[T1]{fontenc}
+  }
+  {CharterBT}{
+    \RequirePackage[bitstream-charter]{mathdesign}
+    \RequirePackage[T1]{fontenc}
+  }
+  {Libertine}{
+    \RequirePackage{libertine}
+    \RequirePackage{libertinust1math}
+    \RequirePackage[T1]{fontenc}
+  }
+  {ComputerModernBright}{
+    \RequirePackage{cmbright}
+    \RequirePackage[OT1]{fontenc}
+  }
+}
+
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{mathtools}
 
 \RequirePackage[margin=1in,paper=\apuntes@pagesize]{geometry}
 \RequirePackage{hyperref}
@@ -81,9 +88,6 @@
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
 \RequirePackage{tikz-cd}
-
-\RequirePackage{amsmath,amssymb,amsthm}
-\RequirePackage{mathtools}
 
 \RequirePackage{subfiles}
 
