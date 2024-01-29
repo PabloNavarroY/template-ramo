@@ -1,4 +1,10 @@
+\NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{math-environments}
+
+\RequirePackage{etoolbox}
+\newtoggle{@bw}
+\DeclareOption{bw}{\toggletrue{@bw}}
+\ProcessOptions\relax
 
 % --------- Package dependencies ---------
 \RequirePackage{hyperref}
@@ -24,14 +30,21 @@
     colback=white,
     frame hidden,
     enhanced,
-    borderline west={.8mm}{0pt}{#4},
+    % \nottoggle{@bw}{borderline west={.8mm}{0mm}{#4}}{borderline west={.3mm}{-.15mm}{black}},
+    borderline west={\nottoggle{@bw}{.8mm}{.3mm}}{\nottoggle{@bw}{0mm}{-.15mm}}{\nottoggle{@bw}{#4}{black}},
     attach boxed title to top left,
     varwidth boxed title=0.75\linewidth,
     boxed title style={empty},
     underlay boxed title={
-      \fill[#4] (title.north west) -- (title.north east)
-      -- +(0.5*\tcboxedtitleheight,-\tcboxedtitleheight)
-      -- (title.south west) -- cycle;
+      \nottoggle{@bw}{
+        \fill[#4] (title.north west) -- (title.north east)
+        -- +(0.5*\tcboxedtitleheight,-\tcboxedtitleheight)
+        -- (title.south west) -- cycle;
+      }{
+        \draw[thick] (title.north west) -- (title.north east)
+        -- +(0.5*\tcboxedtitleheight,-\tcboxedtitleheight)
+        -- (title.south west) -- cycle;
+      }
     },
     breakable,
     pad at break=0mm,
@@ -45,7 +58,7 @@
   \newtcbtheorem[#1]{#2}{#3}{
     enhanced,
     fonttitle=\bfseries,
-    coltitle={#4},
+    coltitle={\nottoggle{@bw}{#4}{black}},
     empty,
     % boxsep={0mm},
     left={1mm},
@@ -57,13 +70,13 @@
     varwidth boxed title=0.75\linewidth,
     boxed title style={empty},
     underlay boxed title={
-      \draw[#4,thick] ([yshift=\tcboxedtitleheight]frame.north east) -- ([yshift=\tcboxedtitleheight]frame.north west) -- (frame.north west);
+      \draw[\nottoggle{@bw}{#4}{black},thick] ([yshift=\tcboxedtitleheight]frame.north east) -- ([yshift=\tcboxedtitleheight]frame.north west) -- (frame.north west);
     },
     overlay unbroken={
-      \draw[#4,thick] (frame.south west) -- (frame.south east) -- +(0,\tcboxedtitleheight);
+      \draw[\nottoggle{@bw}{#4}{black},thick] (frame.south west) -- (frame.south east) -- +(0,\tcboxedtitleheight);
     },
     overlay last={
-      \draw[#4,thick] (frame.south west) -- (frame.south east) -- +(0,\tcboxedtitleheight);
+      \draw[\nottoggle{@bw}{#4}{black},thick] (frame.south west) -- (frame.south east) -- +(0,\tcboxedtitleheight);
     },
     breakable,
     pad at break=0mm,
@@ -78,7 +91,7 @@
     enhanced,
     theorem style=plain,
     fonttitle=\bfseries,
-    coltitle={#4},
+    coltitle={\nottoggle{@bw}{#4}{black}},
     empty,
     boxsep={0mm}, left={0mm}, right={0mm},% top={0mm}, bottom={0mm},
     before skip={0mm},

@@ -1,5 +1,4 @@
-\documentclass{apuntes}
-
+\documentclass[toc]{apuntes}
 \usepackage{lipsum}
 
 % Detalles
@@ -12,97 +11,88 @@
 \emailayudante{mail@dominio.cl}
 \date{0er semestre, 2023}
 
-% Opciones
-\imprimir{}
-
 \begin{document}
 \renewcommand{\onlyinsubfile}[1]{}
 \renewcommand{\notinsubfile}[1]{#1}
-
 \maketitle
 
-\section{Nombre sección}
+\section{Flag environments}
 \begin{definicion}[][reff]
-  Definición de un punto
+  \begin{equation}
+    \begin{sistema}
+      g(y) &= \int_{a}^{b}f(x)\,dx\\
+      h(y) &= \frac{df}{dx}(y)
+    \end{sistema}
+  \end{equation}
   \lipsum[1]
 \end{definicion}
 \Cref{def:reff}
 
 \begin{prop}[][reff]
-  Proposición de un punto
   \lipsum[1]
 \end{prop}
 \Cref{prop:reff}
 
 \begin{teorema}[][reff]
-  Teorema de un punto
   \lipsum[1]
 \end{teorema}
 \Cref{teo:reff}
 
 \begin{corolario}[][reff]
-  Corolario de un punto
   \lipsum[1]
 \end{corolario}
 \Cref{coro:reff}
 
 \begin{lema}[][reff]
-  Lema de un punto
   \lipsum[1]
 \end{lema}
 \Cref{lema:reff}
 
-\begin{aff}[]
-  Afirmación de un punto
-  \lipsum[1]
-\end{aff}
+\section{Demostration environments}
 
 \begin{dem}[]
-  Demostración de un punto
   \lipsum[1]
 \end{dem}
 
 \begin{sol}[]
-  Solución de un punto
   \lipsum[1]
 \end{sol}
 
+\section{Plain environments}
+
+\begin{aff}[]
+  \lipsum[1]
+\end{aff}
+
 \begin{ejemplo}[][reff]
-  Ejemplo de un punto
   \lipsum[1]
 \end{ejemplo}
 \Cref{ej:reff}
 
 \begin{ejercicio}[][reff]
-  Ejercicio de un punto
   \lipsum[1]
 \end{ejercicio}
 \Cref{ejer:reff}
 
 \begin{pregunta}[][reff]
-  Pregunta de un punto
   \lipsum[1]
 \end{pregunta}
 \Cref{preg:reff}
 
 \begin{obs}[][reff]
-  Observación de un punto
   \lipsum[1]
 \end{obs}
 \Cref{obs:reff}
 
 \begin{notacion}[]
-  Notación de un punto
   \lipsum[1]
 \end{notacion}
 
 \begin{recuerdo}[]
-  Recuerdo de un punto
   \lipsum[1]
 \end{recuerdo}
 
 \begin{nota}[]
-  Nota de un punto
   \lipsum[1]
 \end{nota}
 \end{document}
