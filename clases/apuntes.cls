@@ -53,8 +53,7 @@
 % Custom packages
 \RequirePackage{math-macros}
 \RequirePackage[\iftoggle{apuntes@print}{bw}{}]{math-environments}
-\RequirePackage{fancy-dates}
-% \RequirePackage{todolist}
+\RequirePackage[\iftoggle{apuntes@print}{invisible}{}]{fancy-dates}
 
 % Font
 \IfStrEqCase{\apuntes@font}{
@@ -88,6 +87,10 @@
 \RequirePackage{tikz}
 \usetikzlibrary{calc}
 \RequirePackage{tikz-cd}
+
+% todo notes
+\RequirePackage[\iftoggle{apuntes@todo}{status=draft}{}]{fixme}
+\newcommand{\todo}[2][]{\fxnote[nomargin,\ifblank{#1}{inline}{#1}]{#2}}
 
 \RequirePackage{subfiles}
 
@@ -192,12 +195,14 @@
     \tableofcontents
   }{}
   \iftoggle{apuntes@clases}{
-    clases
+    \newpage
+    \listofclases
   }{}
   \iftoggle{apuntes@todo}{
-    todo
+    \newpage
+    \listoffixmes
   }{}
-  % \newpage
+  \newpage
 }
 
 
