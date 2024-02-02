@@ -80,6 +80,8 @@
 \RequirePackage{mathtools}
 
 \RequirePackage[margin=1in,paper=\apuntes@pagesize]{geometry}
+\RequirePackage{varwidth}
+\RequirePackage{calc}
 \RequirePackage{hyperref}
 \RequirePackage{enumitem}
 % \RequirePackage{fancyhdr}
@@ -110,12 +112,12 @@
 }
 
 
-\gdef\@author{\empty}
-\gdef\@class{\empty}
-\gdef\@profesor{\empty}
+\gdef\@author{}
+\gdef\@class{}
+\gdef\@profesor{}
 \gdef\@emailprofesor{}
-\gdef\@ayudante{\empty}
-\gdef\@emailayudante{\empty}
+\gdef\@ayudante{}
+\gdef\@emailayudante{}
 \renewcommand{\author}[1]{\gdef\@author{#1}}
 \newcommand{\class}[1]{\gdef\@class{#1}}
 \newcommand{\profesor}[1]{\gdef\@profesor{#1}}
@@ -146,52 +148,44 @@
 \renewcommand{\maketitle} {
   % \thispagestyle{firstpagestyle}
   \begin{center}
+    % \titleformat{\@title}
     \begin{tikzpicture}
       % Título y sigla
       \node at (0,0) (T) {\titleformat{\@title}};
       \draw let
-      \p1 = ($(T.south) - (0,.2)$),
+      \p1 = ($(T.south) - (0,.1)$),
       \n1 = {-veclen(\p1)},
       \p2 = ($0.6*(T.east)$),
       \n2 = {veclen(\p2)}
       in
       [thick] (-\n2,\n1) -- (\n2,\n1) node (S) [midway, fill=white]{\siglaformat{\@class}};
-      % Autor
-      \node at ($(S.south) - (0,.2)$) (A) {\authorformat{\@author}};
-      % Profesor y ayudante
-      \node (Q1) {\phantom{\textbf{Profesor:}}};
-      \node (Q2) {\phantom{\textbf{Ayudante:}}};
-      \node (Q3) {\phantom{\@profesor\IfStrEq{\@emailprofesor}{}{}{~(\emph{\@emailprofesor})}}};
-      \node (Q4) {\phantom{\@ayudante\IfStrEq{\@emailayudante}{}{}{~(\emph{\@emailayudante})}}};
-      \draw let
-      \p1 = ($(Q1.east) - (Q1.west)$),
-      \n1 = {veclen(\p1)},
-      \p2 = ($(Q2.east) - (Q2.west)$),
-      \n2 = {veclen(\p2)},
-      \p3 = ($(Q3.east) - (Q3.west)$),
-      \n3 = {veclen(\p3)},
-      \p4 = ($(Q4.east) - (Q4.west)$),
-      \n4 = {veclen(\p4)},
-      \n5 = {max(\n1,\n2)}, % largo parte izquierda
-      \n6 = {max(\n3,\n4)}, % largo parte derecha
-      \n7 = {(\n5 - \n6) / 2},
-      \p5 = ($(A.south) + (\n7,-1)$),
-      \p6 = ($(\p5) - (0,.55)$),
-      \n8 = {(\n3 - \n1) / 2},
-      \n9 = {(\n4 - \n2) / 2},
-      \p7 = ($(\p5) + (\n8,0)$),
-      \p8 = ($(\p6) + (\n9,0)$),
-      in
-      node at (\p7) {\textbf{Profesor:} \@profesor\IfStrEq{\@emailprofesor}{}{}{~(\emph{\@emailprofesor})}}
-      node at (\p8) {\textbf{Ayudante:} \@ayudante\IfStrEq{\@emailayudante}{}{}{~(\emph{\@emailayudante})}};
-      % Fecha
-      \node at ($(A.south) - (0,2.8)$) {\dateformat{\@date}};
+      % % Autor
+      % \node at ($(S.south) - (0,.2)$) (A) {\authorformat{\@author}};
     \end{tikzpicture}
+    \par\vspace*{-.5ex}
+    \authorformat{\@author}
+
+    % Profesor y ayudante
+    \vspace*{2em}
+    \begin{varwidth}{0.4\textwidth}
+      \begin{flushright}
+        \IfStrEq{\@profesor}{}{}{\textbf{Profesor:}}\par
+        \IfStrEq{\@ayudante}{}{}{\textbf{Ayudante:}}\par
+      \end{flushright}
+    \end{varwidth}
+    \begin{varwidth}{0.8\linewidth}
+      \@profesor\IfStrEq{\@profesor}{}{}{\IfStrEq{\@emailprofesor}{}{}{~(\emph{\@emailprofesor})}}\par
+      \@ayudante\IfStrEq{\@ayudante}{}{}{\IfStrEq{\@emailayudante}{}{}{~(\emph{\@emailayudante})}}\par
+    \end{varwidth}
+
+    % Fecha
+    \vspace*{2em}
+    \dateformat{\@date}
   \end{center}
 
   % Lists of contents
   \iftoggle{apuntes@toc}{
-    \vspace*{-4ex}
+    \vspace*{-1em}
     \tableofcontents
   }{}
   \iftoggle{apuntes@clases}{
