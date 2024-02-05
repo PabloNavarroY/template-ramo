@@ -166,21 +166,25 @@
     \authorformat{\@author}
 
     % Profesor y ayudante
-    \vspace*{2em}
-    \begin{varwidth}{0.4\textwidth}
-      \begin{flushright}
-        \IfStrEq{\@profesor}{}{}{\textbf{Profesor:}}\par
-        \IfStrEq{\@ayudante}{}{}{\textbf{Ayudante:}}\par
-      \end{flushright}
-    \end{varwidth}
-    \begin{varwidth}{0.8\linewidth}
-      \@profesor\IfStrEq{\@profesor}{}{}{\IfStrEq{\@emailprofesor}{}{}{~(\emph{\@emailprofesor})}}\par
-      \@ayudante\IfStrEq{\@ayudante}{}{}{\IfStrEq{\@emailayudante}{}{}{~(\emph{\@emailayudante})}}\par
-    \end{varwidth}
+    \IfStrEq{\@profesor\@ayudante}{}{}{
+      \vspace*{1em}
+      \begin{varwidth}{0.4\textwidth}
+        \begin{flushright}
+          \IfStrEq{\@profesor}{}{}{\textbf{Profesor:}}\par
+          \IfStrEq{\@ayudante}{}{}{\textbf{Ayudante:}}\par
+        \end{flushright}
+      \end{varwidth}
+      \begin{varwidth}{0.8\linewidth}
+        \@profesor\IfStrEq{\@profesor}{}{}{\IfStrEq{\@emailprofesor}{}{}{~(\emph{\@emailprofesor})}}\par
+        \@ayudante\IfStrEq{\@ayudante}{}{}{\IfStrEq{\@emailayudante}{}{}{~(\emph{\@emailayudante})}}\par
+      \end{varwidth}
+    }
 
     % Fecha
-    \vspace*{2em}
-    \dateformat{\@date}
+    \IfStrEq{\@date}{}{}{
+      \vspace*{1em}
+      \dateformat{\@date}
+    }
   \end{center}
 
   % Lists of contents
