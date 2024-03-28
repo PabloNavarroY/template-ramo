@@ -1,5 +1,4 @@
-@default_files = ('main.tex');
-ensure_path( 'TEXINPUTS', '../latex-stash//' );
+ensure_path( 'TEXINPUTS', '../../latex-stash//' );
 
 # Outputs
 $pdf_mode = 1;

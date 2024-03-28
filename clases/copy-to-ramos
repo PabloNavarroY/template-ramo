@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-for folder in $(ls -d $HOME/ramos/*/clases/ | sed 's:^'"$HOME"'/ramos/\(.*\)/clases/$:\1:' | sed '/template/d')
-do
-    cp "$HOME/ramos/template/clases/apuntes.cls"           "$HOME/ramos/$folder/clases/"
-    cp "$HOME/ramos/template/clases/math-environments.sty" "$HOME/ramos/$folder/clases/"
-    cp "$HOME/ramos/template/clases/fancy-dates.sty"       "$HOME/ramos/$folder/clases/"
-    cp "$HOME/ramos/template/clases/todolist.sty"          "$HOME/ramos/$folder/clases/"
-done
