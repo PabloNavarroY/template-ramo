@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+for i in $(seq 1 "$1"); do
+    if [ -f "p$i.tex" ]; then
+        echo "p$i.tex ya existe"
+    else
+        cp -T "template.tex" "p$i.tex"
+        sed -i 's/z/'"$i"'/' "p$i.tex"
+        sed -i 's/\end{document}/\subfile{files\/'"p$i.tex"'}\n\\end{document}/' ../main.tex
+        echo "p$i.tex creado"
+    fi
+done
