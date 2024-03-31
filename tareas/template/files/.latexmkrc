@@ -1,5 +1,7 @@
 ensure_path( 'TEXINPUTS', '../../', '../../../latex-stash//' );
 
+$pdf_previewer = "start zathura %O %S";
+
 # Outputs
 $pdf_mode = 1;
 $postscript_mode = 0;
