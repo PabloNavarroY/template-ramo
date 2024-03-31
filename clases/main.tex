@@ -1,4 +1,4 @@
-\documentclass[toc,todo,libertine]{apuntes}
+\documentclass[toc,todo,libertinus]{apuntes}
 \usepackage{lipsum}
 
 \usepackage{math-macros}
@@ -19,6 +19,29 @@
 \maketitle
 
 \section{Flag environments}
+\begin{align}
+  a b c d e f g h i j k l m n o p q r s t u v w x y z \\
+  A B C D E F G H I J K L M N O P Q R S T U V W X Y Z \\
+  \mathbb{a b c d e f g h i j k l m n o p q r s t u v w x y z} \\
+  \mathbb{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z} \\
+  \mathcal{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z} \\
+  \mathfrak{a b c d e f g h i j k l m n o p q r s t u v w x y z} \\
+  \mathfrak{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z} \\
+  \alpha \beta \gamma \delta \epsilon \varepsilon \zeta \eta \theta \vartheta \iota \kappa \lambda \mu \nu \xi \pi \rho \varrho \sigma \tau \upsilon \phi \varphi \chi \psi \omega \\
+  \Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Upsilon \Phi \Psi \Omega \\
+  \nabla \partial \ell \int_{a}^{b} \oint_{\gamma} \oiint  \iint_{\Omega} \biguplus_{i=0}^{\infty} \sum_{i=0}^{\infty}\\
+  \forall \exists \nexists \in \ni \notin \subset \supset \mid \wedge \vee \therefore \because \mapsto \to \gets \emptyset \implies \Rightarrow \Leftarrow \neg
+  \sqrt{abc}
+\end{align}
+\begin{equation}
+  \left\lbrace
+	\begin{aligned}
+	  g(y) &= \left( \int_{a}^{b}f(x)\,dx \right)\\
+	  h(y) &= \frac{d\mu}{dx}(y)
+	\end{aligned}
+  \right.
+\end{equation}
+Texto sin sentido alrededor de expresiones matemáticas grandes como \(g(y) = \int_{a}^{b}f(x)\,dx\) y otras expresiones como \(h(y) = \frac{df}{dx}(y)\).
 
 \begin{definicion}[][reff]
 	\begin{equation}
